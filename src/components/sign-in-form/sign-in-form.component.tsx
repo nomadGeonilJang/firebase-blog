@@ -1,7 +1,7 @@
 import React, { useState }from "react";
 import FormInput from "components/form-input/form-input.component";
 
-import { authService, dbService } from "utils/firebase/myfirebase";
+import { authService } from "utils/firebase/myfirebase";
 
 import { SignInFomContainer, Title } from "./sign-in-form.styles";
 import { useHistory } from "react-router";
