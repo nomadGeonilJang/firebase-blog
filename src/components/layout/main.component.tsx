@@ -1,6 +1,9 @@
 import React from "react";
 
-function Main( { children }:any ){
+type MainProps = {
+    children: React.ReactNode
+}
+function Main( { children }:MainProps ){
   return <main>{children}</main>;
 }
 

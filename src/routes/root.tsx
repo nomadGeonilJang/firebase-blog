@@ -3,12 +3,15 @@ import  { Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "pages/home/home.component";
 import Main from "components/layout/main.component";
-import { authService } from "utils/firebase/myfirebase";
+
 import SignInAndSignUp from "pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import { useUser } from "providers/auth/auth";
+import Profile from "pages/profile/profile.component";
 
 function RootRouter(){
 
-  const user = authService.currentUser;
+  const user = useUser();
+
   return (
     <Switch>
       <Main>
@@ -16,11 +19,14 @@ function RootRouter(){
           <Home/>
         </Route>
         <Route path="/auth" render={() => {
-          if( user ){
-            return <Redirect to="/profile"/>;
-          }
+          if( user )return <Redirect to="/profile"/>;
           return <SignInAndSignUp/>;
-        }}/>        
+        }}/>   
+        <Route path="/profile" render={() => {
+          if( !user )return <Redirect to="/"/>;
+          return <Profile/>;
+        }}/>
+                  
       </Main>
     </Switch>
   );

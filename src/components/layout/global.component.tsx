@@ -3,12 +3,19 @@ import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
     ${reset};
+    *{
+        box-sizing:border-box;
+    }
     body{
+        overflow:auto;
         font-size:20px;
         padding: 0;
         margin: 0;
         font-family: 'Nanum Gothic', sans-serif;
     };
+    #root{
+        height:100vh;
+    }
     button{
         display: flex;
         cursor: pointer;
@@ -24,6 +31,16 @@ const GlobalStyle = createGlobalStyle`
         text-decoration:none;
         color:inherit;
         cursor:pointer;
+    }
+    main{
+        padding-top:100px;
+        height:calc(100% - 100px);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+    article{
+        height:100%;
     }
 `;
 

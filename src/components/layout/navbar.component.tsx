@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { authService } from "utils/firebase/myfirebase";
+
+import { useUser } from "providers/auth/auth";
 import color from "utils/them/color";
 function MainNavBar(){
 
-  const user = authService.currentUser;
+  const user = useUser();
   return <NavBar>
     <header>
       <NavLink to="/">
@@ -27,13 +28,15 @@ function MainNavBar(){
 
 const NavBar = styled.nav`
     height:100px;
-    padding:10px;
     text-transform:uppercase;
     background-color:${color.blue};
     color:${color.yellow};
+    
+    position:fixed;
+    width:100%;
     header{
-        width:100%;
         height:100%;
+        padding:10px;
         display:flex;
         justify-content:space-between;
         align-items:center;

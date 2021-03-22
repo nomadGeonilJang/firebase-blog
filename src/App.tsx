@@ -1,23 +1,17 @@
 
-import React, { useEffect }from 'react';
-import { authService } from "utils/firebase/myfirebase";
+import React from 'react';
 
 import RootRouter from 'routes/root';
-
 import Footer from 'components/layout/footer.component';
 import MainNavBar from 'components/layout/navbar.component';
+import { useInit } from 'providers/auth/auth';
+
 function App() {
-  useEffect( () => {
-    authService.onAuthStateChanged( ( user ) => {
-      console.log( user );
-      if( user ){console.log( user );}
-      
-    } );
-  }, [] );
+  const init = useInit();
   return (
     <>
       <MainNavBar/>
-      <RootRouter/>
+      {init && <RootRouter/>}
       <Footer/>
     </>
   );
