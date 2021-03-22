@@ -4,6 +4,7 @@ import reset from "styled-reset";
 const GlobalStyle = createGlobalStyle`
     ${reset};
     body{
+        font-size:20px;
         padding: 0;
         margin: 0;
         font-family: 'Nanum Gothic', sans-serif;
@@ -18,6 +19,11 @@ const GlobalStyle = createGlobalStyle`
         display: flex;
         outline: none;
         padding-left: 10px;
+    }
+    a{
+        text-decoration:none;
+        color:inherit;
+        cursor:pointer;
     }
 `;
 
