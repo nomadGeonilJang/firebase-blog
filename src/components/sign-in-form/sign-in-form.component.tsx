@@ -1,9 +1,10 @@
 import React, { useState }from "react";
 import FormInput from "components/form-input/form-input.component";
+import { FaFacebookF, FaGithubAlt, FaGoogle } from "react-icons/fa";
 
-import { authService } from "utils/firebase/myfirebase";
+import { authService, dbService, getProvider } from "utils/firebase/myfirebase";
 
-import { SignInFomContainer, Title } from "./sign-in-form.styles";
+import { SignInButtonGroup, SignInFomContainer, Title } from "./sign-in-form.styles";
 import { useHistory } from "react-router";
 
 function SignInForm(){
@@ -29,6 +30,33 @@ function SignInForm(){
     }
     
   };
+
+  const handleSocialLogIn = async ( e:any ) => {
+    try {
+      const provider = getProvider( e.target.name );
+      const result = await authService.signInWithPopup( provider );
+      if( result.user ){
+        const { displayName, email, photoURL } = result.user;
+        const userRef = dbService.doc( `/users/${result.user.uid}` );
+        const snapShot = await userRef.get();
+
+        if( !snapShot.exists ){
+          const createdAt = new Date().toISOString;
+          try {
+            await userRef.set( {
+              displayName, email, createdAt, photoURL
+            } );
+          } catch ( error ) {
+            console.log( "error creating user", error.message );
+          }
+        }
+      }
+      
+    } catch ( error ) {
+      alert( error.message ); 
+    }
+   
+  };
   
 
 
@@ -36,10 +64,15 @@ function SignInForm(){
     <>
       <SignInFomContainer onSubmit={handleLogIn}>
         <Title>Log In With Email And Password</Title>
-        <FormInput value={email} onChange={handleChangeFormInput} name="email" type="email" label="Email"/>
-        <FormInput value={password} autoComplete="true" onChange={handleChangeFormInput} name="password" type="password" label="Password"/>
-        <button type="submit">Log In</button>
+        <FormInput required value={email} onChange={handleChangeFormInput} name="email" type="email" label="Email"/>
+        <FormInput required value={password} autoComplete="true" onChange={handleChangeFormInput} name="password" type="password" label="Password"/>
+        <button type="submit">Sign In</button>
       </SignInFomContainer>
+      <SignInButtonGroup>
+        <button onClick={handleSocialLogIn}name="google" id="google"><FaGoogle/>oogle</button>
+        <button onClick={handleSocialLogIn}name="github" id="github"><FaGithubAlt/>Github</button>
+        <button onClick={handleSocialLogIn}name="facebook" id="facebook"><FaFacebookF/>Facebook</button>
+      </SignInButtonGroup>
     </>
   );
 }

@@ -5,7 +5,8 @@ import { User } from "./auth.types";
 
 const AuthContext = createContext<User | null>( {
   displayName: "",
-  email: ""
+  email: "",
+  photoURL: ""
 }  );
 const AuthLogOutContext = createContext<()=>void | null>( () => {
   //

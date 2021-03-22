@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import color from "utils/them/color";
 
 const GlobalStyle = createGlobalStyle`
     ${reset};
@@ -42,6 +43,23 @@ const GlobalStyle = createGlobalStyle`
     article{
         height:100%;
     }
+    button{
+        border:none;
+        outline:none;
+        border-radius:5px;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:1.1rem;
+
+        background-color:${color.green};
+        color:${color.white};        
+        &:hover{
+            opacity:0.8;
+        }
+    }
+    
 `;
 
 export default GlobalStyle;

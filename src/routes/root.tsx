@@ -7,6 +7,7 @@ import Main from "components/layout/main.component";
 import SignInAndSignUp from "pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import { useUser } from "providers/auth/auth";
 import Profile from "pages/profile/profile.component";
+import Post from "pages/post/post.component";
 
 function RootRouter(){
 
@@ -17,6 +18,9 @@ function RootRouter(){
       <Main>
         <Route exact path="/">
           <Home/>
+        </Route>
+        <Route path="/post">
+          <Post/>
         </Route>
         <Route path="/auth" render={() => {
           if( user )return <Redirect to="/profile"/>;
